@@ -62,7 +62,7 @@ class HifiGAN(PWG):
                 self.model, self.config, self.device = load_model(config_path=config_path, checkpoint_path=ckpt)
 
     def spec2wav(self, mel, **kwargs):
-        device = self.device
+        device = torch.device( cuda ) if torch.cuda.is_available() else torch.device( cpu )
         with torch.no_grad():
             c = torch.FloatTensor(mel).unsqueeze(0).transpose(2, 1).to(device)
             with utils.Timer('hifigan', enable=hparams['profile_infer']):
