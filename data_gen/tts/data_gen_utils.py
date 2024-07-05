@@ -333,7 +333,7 @@ def get_mel2ph(tg_fn, ph, mel, hparams):
             tg_idx += 1
     assert tg_idx == len(tg_align), (tg_idx, [x['text'] for x in tg_align])
     assert ph_idx >= len(ph_list) - 1, (ph_idx, ph_list, len(ph_list), [x['text'] for x in tg_align], tg_fn)
-    mel2ph = np.zeros([mel.shape[0]], np.int)
+    mel2ph = np.zeros([mel.shape[0]], int)
     split[0] = 0
     split[-1] = 1e8
     for i in range(len(split) - 1):
