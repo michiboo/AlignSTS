@@ -179,6 +179,16 @@ def get_pitch(wav_data, mel, hparams):
             pitch_floor=f0_min, pitch_ceiling=f0_max).selected_array['frequency']
         lpad = pad_size * 2
         rpad = len(mel) - len(f0) - lpad
+        # Diagnostic prints
+        print(f"len(mel): {len(mel)}")
+        print(f"len(f0): {len(f0)}")
+        print(f"lpad: {lpad}")
+        print(f"rpad: {rpad}")
+    
+    # Ensure rpad is non-negative
+    if rpad < 0:
+        print(f"Warning: rpad is negative ({rpad}), setting rpad to 0.")
+        rpad = 0
             # Ensure rpad is non-negative
         if rpad < 0:
             print(f"Warning: rpad is negative ({rpad}), setting rpad to 0.")
