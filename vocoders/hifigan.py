@@ -48,6 +48,7 @@ total_time = 0
 @register_vocoder
 class HifiGAN(PWG):
     def __init__(self):
+        super().__init__()
         base_dir = hparams['vocoder_ckpt']
         config_path = f'{base_dir}/config.yaml'
         if os.path.exists(config_path):
