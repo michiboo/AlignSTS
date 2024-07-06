@@ -189,7 +189,6 @@ def get_pitch(wav_data, mel, hparams):
         print(f"len(f0): {len(f0)}")
         print(f"lpad: {lpad}")
         print(f"rpad: {rpad}")
-        assert len(f0) == len(mel)
     # mel和f0是2个库抽的 需要保证两者长度一致
     delta_l = len(mel) - len(f0)
     assert np.abs(delta_l) <= 8
