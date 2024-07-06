@@ -180,21 +180,16 @@ def get_pitch(wav_data, mel, hparams):
         lpad = pad_size * 2
         rpad = len(mel) - len(f0) - lpad
         # Diagnostic prints
+        if rpad < 0:
+            print(f"Warning: rpad is negative ({rpad}), setting rpad to 0 and adjusting lpad.")
+            lpad_adjust = min(abs(rpad), lpad)
+            lpad -= lpad_adjust
+            rpad = 0
         print(f"len(mel): {len(mel)}")
         print(f"len(f0): {len(f0)}")
         print(f"lpad: {lpad}")
         print(f"rpad: {rpad}")
-    
-    # Ensure rpad is non-negative
-    if rpad < 0:
-        print(f"Warning: rpad is negative ({rpad}), setting rpad to 0.")
-        rpad = 0
-            # Ensure rpad is non-negative
-        if rpad < 0:
-            print(f"Warning: rpad is negative ({rpad}), setting rpad to 0.")
-            rpad = 0
-        f0 = np.pad(f0, [[lpad, rpad]], mode='constant')
-
+        assert len(f0) == len(mel)
     # mel和f0是2个库抽的 需要保证两者长度一致
     delta_l = len(mel) - len(f0)
     assert np.abs(delta_l) <= 8
